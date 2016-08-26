@@ -14,10 +14,21 @@ if (getURLParameter('n') !== null) {
     selected = getURLParameter('n').split(',');
 }
 
+// metric list
+let opts = document.querySelectorAll('#mapmetric option');
+let optIndex = Math.floor(Math.random() * opts.length);
+opts[optIndex].setAttribute('selected', true);
+let mapmetric = document.querySelector('#mapmetric');
+mapmetric.onchange = function() {
+    let metric = this.options[this.selectedIndex];
+    document.querySelector('#map').setAttribute('src', `${siteConfig.qolembedURL}embed.html?m=${metric.value}&s=${selected.join(',')}`);
+};
+
 // map
-if (selected.length > 0 && siteConfig.qolembedURL) {
-    document.querySelector('.page-map').style.display = 'block';
-    document.querySelector('#map').setAttribute('src', `${siteConfig.qolembedURL}embed.html?s=${selected.join(',')}`);
+if (siteConfig.qolembedURL) {
+    document.querySelector('#map').setAttribute('src', `${siteConfig.qolembedURL}embed.html?m=${opts[optIndex].getAttribute('value')}&s=${selected.join(',')}`);
+} else {
+    document.querySelector('.page-map').style.display = 'none';
 }
 
 // hide first page grid if nothing selected

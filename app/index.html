@@ -43,8 +43,22 @@
                 <button onclick="window.print();"><img src="img/ic_print_48px.svg" style="width: 48px; height: 48px" alt="print button"></button>
             </div>
             <div class="form">
-                <label for="maptitle">Report Title</label>
-				<input type="text" id="maptitle" name="maptitle" oninput="document.querySelector('#reportTitle').innerHTML=this.value" maxlength="100" aria-label="map title" value="Summary Report">
+                <label for="reporttitle">Report Title</label>
+				<input type="text" id="reporttitle" name="maptitle" oninput="document.querySelector('#reportTitle').innerHTML=this.value" maxlength="100" aria-label="map title" value="Summary Report">
+                {{#if site.qolembedURL}}
+                <label for="mapmetric">Map Variable</label>
+                <select id="mapmetric">
+                    {{#each categories}}
+                    <optgroup label="{{this}}">
+                            {{#each ../dataConfig}}
+                            {{#ifCond category ../this }}
+                            <option value="{{metric}}">{{title}}</option>
+                            {{/ifCond}}
+                            {{/each}}
+                    </optgroup>
+                    {{/each}}
+                </select>
+                {{/if}}
             </div>
             <div style="clear:both"></div>
         </header>
