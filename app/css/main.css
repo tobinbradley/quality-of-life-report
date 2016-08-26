@@ -1,0 +1,129 @@
+
+@import '../../node_modules/normalize.css/normalize.css';
+@import './modules/table.css';
+
+@page {
+    size: 8.5in 11in;
+    margin: 0.75in;
+}
+
+body {
+    background: #ccc;
+    font-family: "Helvetica", "Arial", sans-serif;
+    line-height: 1.5;
+    padding: 1em 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.container {
+    width: 6.9in;
+    margin: 0 auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* links */
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+a:focus, a:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+/* font alignment helpers */
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+
+/* header tags */
+h1 {
+    margin-top: 0;
+}
+h1, h2, h3 {
+    text-shadow: 1px 1px 1px #ccc;
+}
+
+/* print header */
+header {
+    background: white;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 0 3px #666,0 10px 6px -6px #666;
+    .print {
+        display: inline-block;
+        width: 17%;
+        padding: 0 20px;
+    }
+    .form {
+        display: inline-block;
+        width: 83%;
+        float: right;
+        padding: 0 20px;
+        border-left: 1px solid #ccc;
+    }
+    input {
+        width: 100%;
+        padding: 3px;
+        font-size: 0.8em;
+        border: 1px solid #a2a2a2;
+        margin-bottom: 5px;
+    }
+}
+
+/* first page text */
+.blather {
+    column-count: 2;
+    column-gap: 20px;
+
+    p:first-child {
+        margin-top: 0;
+    }
+}
+
+/* map */
+.embed {
+    height: 9.4in;
+    iframe {
+        overflow: hidden;
+        border: none;
+    }
+}
+
+/* pages */
+.page {
+    width: 6.9in;
+    height: 9.4in;
+    margin: 50px auto;
+    padding: 0.2in;
+    background: white;
+	box-shadow: 0 0 3px #666,0 10px 6px -6px #666;
+}
+.page-map {
+    padding: 0;
+    display: none;
+}
+
+@media print {
+    header {
+        display: none;
+    }
+    body {
+        padding: 0;
+    }
+    .page {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+}
