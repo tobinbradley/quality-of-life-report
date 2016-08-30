@@ -40,8 +40,7 @@
     "rollupify": "^0.3.4",
     "turf-point-on-surface": "^3.0.12",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "vueify": "^8.7.0"
+    "vinyl-source-stream": "^1.1.0"
   },
   "eslintConfig": {
     "env": {
