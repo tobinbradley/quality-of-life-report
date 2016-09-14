@@ -4,14 +4,14 @@ import getURLParameter from './modules/geturlparams';
 import isNumeric from './modules/isnumeric';
 import {sum, mean, weighted} from './modules/metric_calculations';
 import {prettyNumber} from './modules/number_format';
-import dataConfig from '../../data/config/v2/data';
-import siteConfig from '../../data/config/v2/site';
+import dataConfig from '../../data/config/data';
+import siteConfig from '../../data/config/site';
 
 
 // Set selected data set
 var selected = [];
-if (getURLParameter('n') !== null) {
-    selected = getURLParameter('n').split(',');
+if (getURLParameter('s') !== null) {
+    selected = getURLParameter('s').split(',');
 }
 
 // metric list

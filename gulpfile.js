@@ -20,8 +20,8 @@ var postcss = require("gulp-postcss"),
     path = require('path'),
     jsoncombine = require("gulp-jsoncombine"),
     jsonmin = require('gulp-jsonmin'),
-    dataConfig = require('./data/config/v2/data.js'),
-    siteConfig = require('./data/config/v2/site.js');
+    dataConfig = require('./data/config/data.js'),
+    siteConfig = require('./data/config/site.js');
 
 
 
@@ -206,7 +206,7 @@ gulp.task('convert', ['clean'], function() {
 // convert/move json files
 gulp.task('transform', ['clean', 'convert'], function(cb) {
     var dest = "./tmp/pre";
-    var config = require('./data/config/config.js').metricConfig;
+    var config = dataConfig;
 
     mkdirp(dest);
 
