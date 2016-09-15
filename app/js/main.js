@@ -39,6 +39,16 @@ if (selected.length > 0) {
 // Fetch data
 axios.get('./data/metric/data.json')
     .then(function (response) {
+        // validate selected and toss out loosers
+        let mKeys = Object.keys(response.data);
+        let nKeys = Object.keys(response.data[mKeys[0]]);
+        for (let i = 0; i < selected.length; i++) {
+            if (nKeys.indexOf(selected[i]) === -1) {
+                let pos = selected.indexOf(selected[i]);
+                selected.splice(pos, 1);
+            }
+        }
+
         crunch(dataConfig, response.data);
     });
 
