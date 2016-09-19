@@ -71,11 +71,8 @@ gulp.task("css", function() {
         .pipe(postcss([
             require("postcss-import")(),
             require("postcss-nested"),
-            require("postcss-cssnext")({
-                'browers': ['last 3 version'],
-                'customProperties': true,
-                'colorFunction': true,
-                'customSelectors': true
+            require("autoprefixer")({
+                'browers': ['last 2 version']
             })
         ]))
         .pipe(gutil.env.type === 'production' ? nano() : gutil.noop())
@@ -104,12 +101,10 @@ gulp.task('template', function(cb) {
     var source = fs.readFileSync('./app/index.html', 'utf-8').toString();
     var data = {
         cachebuster: Math.floor((Math.random() * 100000) + 1),
-        gaKey: siteConfig.gaKey,
+        siteConfig: siteConfig,
         description: meta,
         dataConfig: dataConfig,
-        categories: categories,
-        header: siteConfig.header,
-        site: siteConfig
+        categories: categories
     };
 
     handlebars.registerHelper('ifCond', function(v1, v2, options) {

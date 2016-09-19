@@ -4,12 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="{{ header.description }}">
-    <meta name="keywords" content="{{ header.keywords }}">
-    <meta name="author" content="{{ header.author }}">
-
-    <!-- Set the title here -->
-    <title>{{ header.title }}</title>
+    <meta name="description" content="{{ siteConfig.description }}">
+    <meta name="keywords" content="{{ siteConfig.keywords }}">
+    <meta name="author" content="{{ siteConfig.author }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>{{ siteConfig.title }}</title>
 
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,7 +17,7 @@
     <meta name="mobile-web-app-capable" content="yes">
 
     <!-- Windows 8.1 garbage -->
-    <meta name="application-name" content="{{ header.title }}" />
+    <meta name="application-name" content="{{ siteConfig.title }}" />
     <meta name="msapplication-TileColor" content="#1e59bd" />
 
     <!-- Favicon -->
@@ -32,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/main.css?foo={{ cachebuster }}">
+    <link rel="stylesheet" href="css/main.css?{{ siteConfig.cachebuster }}">
 
 </head>
 <body>
@@ -45,7 +44,7 @@
             <div class="form">
                 <label for="reporttitle">Report Title</label>
 				<input type="text" id="reporttitle" name="maptitle" oninput="document.querySelector('#reportTitle').innerHTML=this.value" maxlength="100" aria-label="map title" value="Summary Report">
-                {{#if site.qolembedURL}}
+                {{#if siteConfig.qolembedURL}}
                 <label for="mapmetric">Map Variable</label>
                 <select id="mapmetric">
                     {{#each categories}}
@@ -166,7 +165,7 @@
                 {{#each ../dataConfig}}
                 {{#ifCond category ../this }}
                 <tr>
-                    <td><a href="{{../../site.qoldashboardURL}}?m=m{{metric}}" target="_blank" class="m{{metric}}-link">{{title}}</a> (<span class="m{{metric}}-year"></span>)<span class="description">{{{desc metric}}}.</span></td>
+                    <td><a href="{{../../siteConfig.qoldashboardURL}}?m=m{{metric}}" target="_blank" class="m{{metric}}-link">{{title}}</a> (<span class="m{{metric}}-year"></span>)<span class="description">{{{desc metric}}}.</span></td>
                     <td class="text-right"><span class="m{{metric}}-selected">--</span>{{#if raw_label }}<br><span class="m{{metric}}-selected-raw">--</span>{{/if}}</td>
                     <td class="text-right"><span class="m{{metric}}-county">--</span>{{#if raw_label }}<br><span class="m{{metric}}-county-raw">--</span>{{/if}}</td>
                     <td>{{label}}{{#if raw_label }}<br>{{raw_label}}{{/if}}</td>
@@ -181,13 +180,13 @@
     </div>
 
     <!-- scripts at the bottom yo -->
-    <script src="js/main.js?foo={{ cachebuster }}"></script>
+    <script src="js/main.js?{{ siteConfig.cachebuster }}"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', '{{ gaKey }}', 'mcmap.org');
+        ga('create', '{{ siteConfig.gaKey }}', 'mcmap.org');
         ga('send', 'pageview');
     </script>
 </body>
