@@ -203,16 +203,15 @@ gulp.task('transform', ['clean', 'convert'], function(cb) {
     var dest = "./tmp/pre";
     var config = dataConfig;
 
-    mkdirp(dest);
-
-    _.each(config, function(m) {
+    mkdirp(dest, function() {
+        _.each(config, function(m) {
         if (m.type === "sum") {
             let r = require('./tmp/r' + m.metric + '.json');
             fs.writeFileSync(path.join(dest, `r${m.metric}.json`), JSON.stringify(jsonTransform(r), null, '  '));
         }
         if (m.type === "mean") {
-            let r = require('./tmp/r' + m.metric + '.json');
-            fs.writeFileSync(path.join(dest, `r${m.metric}.json`), JSON.stringify(jsonTransform(r), null, '  '));
+            let n = require('./tmp/n' + m.metric + '.json');
+            fs.writeFileSync(path.join(dest, `r${m.metric}.json`), JSON.stringify(jsonTransform(n), null, '  '));
         }
         if (m.type === "weighted") {
             let r = require('./tmp/r' + m.metric + '.json');
@@ -223,4 +222,7 @@ gulp.task('transform', ['clean', 'convert'], function(cb) {
     });
 
     cb();
+    });
+
+
 });
