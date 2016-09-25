@@ -27,9 +27,7 @@ mapmetric.onchange = function() {
 // map
 if (siteConfig.qolembedURL) {
     document.querySelector('#map').setAttribute('src', `${siteConfig.qolembedURL}embed.html?m=${opts[optIndex].getAttribute('value')}&s=${selected.join(',')}`);
-} else {
-    document.querySelector('.page-map').style.display = 'none';
-}
+} 
 
 // hide first page grid if nothing selected
 if (selected.length > 0) {
