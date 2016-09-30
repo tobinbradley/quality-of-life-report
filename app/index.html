@@ -38,18 +38,17 @@
 
 </head>
 <body>
-    <div class="container">
-
+    <div class="fixednav">
         <header>
             <div class="print">
                 <button onclick="window.print();"><img src="img/ic_print_48px.svg" style="width: 48px; height: 48px" alt="print button"></button>
             </div>
             <div class="form">
-                <label for="reporttitle">Report Title</label>
-				<input type="text" id="reporttitle" name="maptitle" oninput="document.querySelector('#reportTitle').innerHTML=this.value" maxlength="100" aria-label="map title" value="Summary Report">
+                <label for="reporttitle" class="blocklabel">Report Title</label>
+                <input type="text" id="reporttitle" name="maptitle" oninput="document.querySelector('#reportTitle').innerHTML=this.value" maxlength="100" aria-label="map title" value="Summary Report">
                 {{#if siteConfig.qolembedURL}}
-                <label for="mapmetric">Map Variable</label>
-                <select id="mapmetric">
+                <button id="togglemap">Show Map</button>
+                <select id="mapmetric" disabled>
                     {{#each categories}}
                     <optgroup label="{{this}}">
                             {{#each ../dataConfig}}
@@ -64,16 +63,9 @@
             </div>
             <div style="clear:both"></div>
         </header>
+    </div>
 
-
-        <!-- Map -->
-        {{#if siteConfig.qolembedURL}}
-        <div class="page page-map">
-            <div class="embed">
-                <iframe id="map" width="100%" height="100%" title="map"></iframe>
-            </div>
-        </div>
-        {{/if}}
+    <div class="container">
 
         <!-- Front page -->
         <div class="page page-front">
@@ -151,7 +143,18 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="printfooter"><span class="attribution">{{siteConfig.title}}{{#if siteConfig.qoldashboardURL}} &bull; <a href="{{siteConfig.qoldashboardURL}}" target="_blank">{{fancyURL siteConfig.qoldashboardURL}}</a>{{/if}}</span></div>
         </div>
+
+
+        <!-- Map -->
+        {{#if siteConfig.qolembedURL}}
+        <div class="page page-map">
+            <div class="embed">
+                <iframe id="map" width="100%" height="100%" title="map"></iframe>
+            </div>
+        </div>
+        {{/if}}
 
 
         {{#each categories}}
@@ -179,6 +182,7 @@
                 {{/each}}
             </tbody>
           </table>
+          <div class="printfooter"><span class="attribution">{{../siteConfig.title}}{{#if ../siteConfig.qoldashboardURL}} &bull; <a href="{{siteConfig.qoldashboardURL}}" target="_blank">{{fancyURL ../siteConfig.qoldashboardURL}}</a>{{/if}}</span></div>
         </div>
         {{/each}}
 

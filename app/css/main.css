@@ -11,7 +11,7 @@ body {
     background: #ccc;
     font-family: "Helvetica", "Arial", sans-serif;
     line-height: 1.5;
-    padding: 1em 0;
+    padding: 150px 0 1em;
     font-size: 14px;
     font-weight: normal;
 }
@@ -54,12 +54,22 @@ h1, h2, h3 {
     text-shadow: 1px 1px 1px #ccc;
 }
 
+.fixednav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+}
+
 /* print header */
 header {
     background: white;
     padding: 20px;
     margin: 20px 0;
     box-shadow: 0 0 3px #666,0 10px 6px -6px #666;
+    width: 6.9in;
+    margin: 0 auto;
+
     .print {
         display: inline-block;
         width: 17%;
@@ -72,12 +82,18 @@ header {
         padding: 0 20px;
         border-left: 1px solid #ccc;
     }
-    input, select {
+    #reporttitle, select {
         width: 100%;
         padding: 3px;
         font-size: 0.8em;
         border: 1px solid #a2a2a2;
         margin-bottom: 5px;
+    }
+    select {
+        margin-top: 5px;
+    }
+    #reporttitle {
+        margin-bottom: 10px;
     }
 }
 
@@ -108,13 +124,22 @@ header {
     padding: 0.2in;
     background: white;
 	box-shadow: 0 0 3px #666,0 10px 6px -6px #666;
+    position: relative;
 }
 .page-map {
     padding: 0;
+    display: none;
+}
+.printfooter {
+    position: absolute;
+    bottom: 2px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
 }
 
 @media print {
-    header {
+    .fixednav {
         display: none;
     }
     body {

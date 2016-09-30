@@ -118,6 +118,14 @@ gulp.task('template', function(cb) {
         return data.description['m' + m];
     });
 
+    handlebars.registerHelper('fancyURL', function(url) {
+        url = url.replace('http://', '').replace('https://', '');
+        if (url[url.length - 1] === '/') {
+            url = url.substring(0, url.length - 1);
+        }
+        return url;
+    });
+
     var template = handlebars.compile(source);
     var html = template(data);
     fs.writeFileSync(path.join('./public/', 'index.html'), html);

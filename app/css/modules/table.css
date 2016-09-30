@@ -64,4 +64,7 @@ table {
         border-bottom: 1px solid black;
         padding: 5px;
     }
+    thead {
+        display: table-row-group;
+    }
 }
