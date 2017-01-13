@@ -39,7 +39,7 @@ if (togglemap) {
             mapcontainer.style.display = "block";
             window.scrollTo(0, 965);
             this.innerHTML = "Hide Map";
-            map.setAttribute('src', `${siteConfig.qolembedURL}embed.html?m=${mapmetric.value}&s=${selected.join(',')}`);
+            map.setAttribute('src', `${siteConfig.qolembedURL}embed.html?m=${mapmetric.value}&s=${selected.join(',')}&tocp=true`);
         } else {
             mapselect.disabled = true;
             mapcontainer.style.display = "none";
