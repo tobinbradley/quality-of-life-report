@@ -40,14 +40,11 @@
 <body>
     <div class="fixednav">
         <header>
-            <div class="print">
-                <button onclick="window.print();"><img src="img/ic_print_48px.svg" style="width: 48px; height: 48px" alt="print button"></button>
-            </div>
             <div class="form">
                 <label for="reporttitle" class="blocklabel">Report Title</label>
                 <input type="text" id="reporttitle" name="maptitle" oninput="document.querySelector('#reportTitle').innerHTML=this.value" maxlength="100" aria-label="map title" value="Summary Report">
                 {{#if siteConfig.qolembedURL}}
-                <button id="togglemap">Show Map</button>
+                <button id="togglemap" class="button">Show Map</button>
                 <select id="mapmetric" disabled>
                     {{#each categories}}
                     <optgroup label="{{this}}">
@@ -60,6 +57,7 @@
                     {{/each}}
                 </select>
                 {{/if}}
+                <button onclick="window.print();" class="button">Print</button>
             </div>
             <div style="clear:both"></div>
         </header>
@@ -71,7 +69,7 @@
         <div class="page page-front">
             <div>
                 <div class="hero">
-                    <img class="logo-image" src="img/report-logo.png">
+                    <img class="logo-image" src="img/logo.png">
                     <div class="subhero">
                         <h1 class="text-center" id="reportTitle">Summary Report</h1>
                     </div>

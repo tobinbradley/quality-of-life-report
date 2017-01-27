@@ -70,17 +70,8 @@ header {
     width: 6.9in;
     margin: 0 auto;
 
-    .print {
-        display: inline-block;
-        width: 17%;
-        padding: 0 20px;
-    }
     .form {
         display: inline-block;
-        width: 83%;
-        float: right;
-        padding: 0 20px;
-        border-left: 1px solid #ccc;
     }
     #reporttitle, select {
         width: 100%;
@@ -95,6 +86,21 @@ header {
     #reporttitle {
         margin-bottom: 10px;
     }
+}
+
+/* Button */
+.button {
+    background-color: #CBCDCB; /* Green */
+    border: none;
+    color: #555;
+    padding: 7px 12px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 6px;
+    box-shadow: 1px 1px 3px #666;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 /* first page text */
