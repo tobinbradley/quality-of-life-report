@@ -15,49 +15,28 @@ if (getURLParameter('s') !== null) {
 }
 
 // metric list
-let opts = document.querySelectorAll('#mapmetric option');
-let optIndex = Math.floor(Math.random() * opts.length);
-opts[optIndex].setAttribute('selected', true);
-let mapmetric = document.querySelector('#mapmetric');
-mapmetric.onchange = function() {
-    let metric = this.options[this.selectedIndex];
-    document.querySelector('#map').setAttribute('src', `${siteConfig.qolembedURL}embed.html?m=${metric.value}&s=${selected.join(',')}`);
-};
-
-
-// handle map toggle
-let togglemap = document.querySelector("#togglemap");
-if (togglemap) {
-    togglemap.addEventListener('click', function() {
-        let mapselect = document.querySelector("#mapmetric");
-        let map = document.querySelector('#map');
-        let mapcontainer = document.querySelector(".page-map");
-        let mapmetric = document.querySelector("#mapmetric");
-
-        if (this.innerHTML === "Show Map") {
-            mapselect.disabled = false;
-            mapcontainer.style.display = "block";
-            window.scrollTo(0, 965);
-            this.innerHTML = "Hide Map";
-            map.setAttribute('src', `${siteConfig.qolembedURL}embed.html?m=${mapmetric.value}&s=${selected.join(',')}&tocp=true`);
-        } else {
-            mapselect.disabled = true;
-            mapcontainer.style.display = "none";
-            window.scrollTo(0, 0);
-            this.innerHTML = "Show Map";
-        }
-    });
+// get random metric if none provided and validate provided
+let keys = Object.keys(dataConfig);
+let metricId = keys[Math.floor(Math.random() * keys.length)].replace('m', '');
+if (getURLParameter("m")) {
+    let passedMetric = getURLParameter("m").replace('m', '');
+    if (keys.indexOf(`m${passedMetric}`) !== -1) {
+        metricId = passedMetric;
+    }
 }
+
+
+// handle map
+let map = document.querySelector('#map');
+map.setAttribute('src', `http://mcmap.org/qol-mecklenburg/embed/?m=${metricId}&s=${selected.join(',')}`);
+
+
 
 // map
 // if (siteConfig.qolembedURL) {
 //     document.querySelector('#map').setAttribute('src', `${siteConfig.qolembedURL}embed.html?m=${opts[optIndex].getAttribute('value')}&s=${selected.join(',')}`);
 // }
 
-// hide first page grid if nothing selected
-if (selected.length > 0) {
-    document.querySelector('.metric-box').style.display = 'table';
-}
 
 // Fetch data
 axios.get('./data/metric/data.json')
@@ -86,10 +65,10 @@ function crunch(config, data) {
         populateVals(`.m${d.metric}-year`, year.replace('y_', ''));
 
         // links
-        if (selected.length > 0) {
-            let link = document.querySelector(`.m${d.metric}-link`);
-            link.setAttribute('href', link.getAttribute('href') + `&n=${selected.join(',')}`);
-        }
+        // if (selected.length > 0) {
+        //     let link = document.querySelector(`.m${d.metric}-link`);
+        //     link.setAttribute('href', link.getAttribute('href') + `&n=${selected.join(',')}`);
+        // }
 
         // Set value arrays
         let cntyArray = valsToArray(data[`r${d.metric}`], year, Object.keys(data[`r${d.metric}`]));
