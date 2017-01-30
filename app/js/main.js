@@ -25,10 +25,15 @@ if (getURLParameter("m")) {
     }
 }
 
+// year for embed map
+let year = '';
+if (getURLParameter("y")) {
+    year = getURLParameter("y");
+}
 
 // handle map
 let map = document.querySelector('#map');
-map.setAttribute('src', `http://mcmap.org/qol-mecklenburg/embed/?m=${metricId}&s=${selected.join(',')}`);
+map.setAttribute('src', `http://mcmap.org/qol-mecklenburg/embed/?m=${metricId}&s=${selected.join(',')}&y=${year}`);
 
 
 
