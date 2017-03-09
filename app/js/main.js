@@ -33,7 +33,7 @@ if (getURLParameter("y")) {
 
 // handle map
 let map = document.querySelector('#map');
-map.setAttribute('src', `http://mcmap.org/qol-mecklenburg/embed/?m=${metricId}&s=${selected.join(',')}&y=${year}`);
+map.setAttribute('src', `https://mcmap.org/qol-mecklenburg/embed/?m=${metricId}&s=${selected.join(',')}&y=${year}`);
 
 
 
