@@ -2,7 +2,7 @@
 
 An independent project related to the [Quality of Life Dashboard](https://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard).
 
-[DEMO](http://mcmap.org/qol-report/?n=2,10)
+[DEMO](http://mcmap.org/qol-report/?s=2,10)
 
 ## Setup
 
