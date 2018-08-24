@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "datagen": "gulp datagen",
-    "build": "gulp build --type=production",
+    "build": "gulp build --production",
     "start": "gulp"
   },
   "author": "Tobin Bradley",
@@ -56,30 +56,14 @@
     },
     "plugins": [],
     "rules": {
-      "indent": [
-        2,
-        4
-      ],
-      "linebreak-style": [
-        2,
-        "unix"
-      ],
-      "quotes": [
-        0,
-        "single"
-      ],
-      "semi": [
-        2,
-        "always"
-      ]
+      "indent": [2, 4],
+      "linebreak-style": [2, "unix"],
+      "quotes": [0, "single"],
+      "semi": [2, "always"]
     }
   },
   "babel": {
-    "presets": [
-      "es2015"
-    ],
-    "plugins": [
-      "transform-runtime"
-    ]
+    "presets": ["es2015"],
+    "plugins": ["transform-runtime"]
   }
 }
