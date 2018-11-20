@@ -1,12 +1,28 @@
-require('es6-promise').polyfill();  // fix for Axois on IE11
-import axios from 'axios';
+import Vue from 'vue';
 import getURLParameter from './modules/geturlparams';
 import isNumeric from './modules/isnumeric';
 import {sum, mean, weighted} from './modules/metric_calculations';
 import {prettyNumber} from './modules/number_format';
 import dataConfig from '../../data/config/data';
 import siteConfig from '../../data/config/site';
+import Category from './components/category.vue';
 
+Vue.config.productionTip = false;
+
+// Set up category components
+Category.data = function() {
+    return {
+      sharedState: appState,
+      privateState: {
+        neighborhoodDescriptor: siteConfig.neighborhoodDescriptor,
+        neighborhoodDefinition: siteConfig.neighborhoodDefinition
+      }
+    };
+  };
+new Vue({
+  el: 'sc-search',
+  render: h => h(Category)
+});
 
 // Set selected data set
 var selected = [];

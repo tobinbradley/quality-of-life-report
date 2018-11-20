@@ -1,6 +1,6 @@
 
-@import '../../node_modules/normalize.css/normalize.css';
-@import './modules/table.css';
+@import '../node_modules/normalize.css/normalize.css';
+@import './css/table.css';
 
 @page {
     size: 8.5in 11in;
