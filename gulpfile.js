@@ -6,7 +6,6 @@ var postcss = require("gulp-postcss"),
     mkdirp = require('mkdirp'),
     sourcemaps = require("gulp-sourcemaps"),
     gutil = require('gulp-util'),
-    imagemin = require('gulp-imagemin'),
     browserSync = require('browser-sync'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
@@ -18,16 +17,14 @@ var postcss = require("gulp-postcss"),
     _ = require('lodash'),
     fs = require('fs'),
     path = require('path'),
-    jsoncombine = require("gulp-jsoncombine"),
     jsonmin = require('gulp-jsonmin'),
     dataConfig = require('./data/config/data.json'),
     siteConfig = require('./data/config/site.json');
 
 
 
-gulp.task('datagen', ['clean', 'convert', 'transform', 'merge-json']);
 gulp.task('default', ['watch', 'browser-sync']);
-gulp.task('build', ['css', 'js-app', 'template', 'imagemin', 'move']);
+gulp.task('build', ['css', 'js-app', 'template', 'move']);
 
 
 // Live reload server
@@ -44,7 +41,6 @@ gulp.task('watch', function () {
     gulp.watch(['./app/*.html'], ['template']);
     gulp.watch(['./app/css/**/*.css'], ['css']);
     gulp.watch(['./app/js/**/*.js'], ['js-app']);
-    gulp.watch('./app/img/**/*', ['imagemin']);
 });
 
 // JavaScript
@@ -81,19 +77,6 @@ gulp.task("css", function () {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('./public/css'));
 });
-
-// image minification
-gulp.task('imagemin', function () {
-    return gulp.src('./app/img/*')
-        .pipe(imagemin({
-            optimizationLevel: 5,
-            svgoPlugins: [{
-                removeViewBox: false
-            }]
-        }))
-        .pipe(gulp.dest('public/img'));
-});
-
 
 gulp.task('template', function (cb) {
     var meta = filterMeta();
@@ -138,14 +121,6 @@ gulp.task('template', function (cb) {
     cb();
 });
 
-
-// move stuff from app to public
-gulp.task('move', function () {
-    gulp.src('./app/fonts/*.*')
-        .pipe(gulp.dest('./public/fonts/'));
-});
-
-
 // Get short description from meta into JSON array for SWIG
 function filterMeta() {
     var meta = {};
@@ -185,60 +160,3 @@ function jsonTransform(jsonArray) {
     }
     return jsonOut;
 }
-
-
-// merge json
-gulp.task('merge-json', ['clean', 'convert', 'transform'], function () {
-    return gulp.src("tmp/pre/*.json")
-        .pipe(jsoncombine("data.json", function (data) {
-            return new Buffer(JSON.stringify(data));
-        }))
-        .pipe(jsonmin())
-        .pipe(gulp.dest("public/data/metric"));
-});
-
-// clean junk before build
-gulp.task('clean', function (cb) {
-    del(['tmp/**']).then(cb());
-});
-
-
-// csv to jxon
-gulp.task('convert', ['clean'], function () {
-    mkdirp('./data/metric');
-    return gulp.src('data/metric/*.csv')
-        .pipe(convert({
-            from: 'csv',
-            to: 'json'
-        }))
-        .pipe(gulp.dest('tmp/'));
-});
-
-// convert/move json files
-gulp.task('transform', ['clean', 'convert'], function (cb) {
-    var dest = "./tmp/pre";
-    var config = dataConfig;
-
-    mkdirp(dest, function () {
-        _.each(config, function (m) {
-            if (m.type === "sum") {
-                let r = require('./tmp/r' + m.metric + '.json');
-                fs.writeFileSync(path.join(dest, `r${m.metric}.json`), JSON.stringify(jsonTransform(r), null, '  '));
-            }
-            if (m.type === "mean") {
-                let n = require('./tmp/n' + m.metric + '.json');
-                fs.writeFileSync(path.join(dest, `r${m.metric}.json`), JSON.stringify(jsonTransform(n), null, '  '));
-            }
-            if (m.type === "weighted") {
-                let r = require('./tmp/r' + m.metric + '.json');
-                var d = require('./tmp/d' + m.metric + '.json');
-                fs.writeFileSync(path.join(dest, `r${m.metric}.json`), JSON.stringify(jsonTransform(r), null, '  '));
-                fs.writeFileSync(path.join(dest, `w${m.metric}.json`), JSON.stringify(jsonTransform(d), null, '  '));
-            }
-        });
-
-        cb();
-    });
-
-
-});
