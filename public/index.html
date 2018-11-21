@@ -14,9 +14,7 @@
     <!-- polyfill for fetch -->
     <script>
         window.fetch || document.write('<script src="https://unpkg.com/whatwg-fetch@1.0.0/fetch.js"><\/script>');
-    </script>
-   
-
+    </script>   
 </head>
 <body>
     <div class="fixednav">
@@ -24,6 +22,7 @@
             <div class="form">
                 <label for="reporttitle" class="blocklabel">Report Title</label>
                 <input type="text" id="reporttitle" name="maptitle" oninput="document.querySelector('#reportTitle').innerHTML=this.value" maxlength="100" aria-label="map title" value="Summary Report">
+                <% if (VUE_APP_qolembedURL) { %>
                 {{#if siteConfig.qolembedURL}}
                 <button id="togglemap" class="button">Show Map</button>
                 <select id="mapmetric" disabled>
@@ -37,7 +36,7 @@
                     </optgroup>
                     {{/each}}
                 </select>
-                {{/if}}
+                <% } %>
                 <button onclick="window.print();" class="button">Print</button>
             </div>
             <div style="clear:both"></div>

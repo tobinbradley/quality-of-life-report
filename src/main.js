@@ -5,23 +5,14 @@ import {sum, mean, weighted} from './modules/metric_calculations';
 import {prettyNumber} from './modules/number_format';
 import dataConfig from '../../data/config/data';
 import siteConfig from '../../data/config/site';
-import Category from './components/category.vue';
+import App from './components/app.vue';
 
 Vue.config.productionTip = false;
 
 // Set up category components
-Category.data = function() {
-    return {
-      sharedState: appState,
-      privateState: {
-        neighborhoodDescriptor: siteConfig.neighborhoodDescriptor,
-        neighborhoodDefinition: siteConfig.neighborhoodDefinition
-      }
-    };
-  };
 new Vue({
-  el: 'sc-search',
-  render: h => h(Category)
+  el: 'sc-app',
+  render: h => h(App)
 });
 
 // Set selected data set

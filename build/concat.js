@@ -6,7 +6,7 @@ var fs = require('fs');
 var shell = require('shelljs');
 
 // Default destination path for resultant json file.
-var destPath = path.join('public/data/metric/data.json');
+var destPath = path.join('src/assets/data.json');
 
 // Default no console logging.
 var verbose = false;

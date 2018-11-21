@@ -28,47 +28,46 @@ function jsonTransform(jsonArray) {
   var jsonOut = {};
   for (var i = 0; i < jsonArray.length; i++) {
     jsonOut[jsonArray[i]['id']] = {};
-    for (var key in jsonArray[i]) {
-      if (key !== 'id') {
-        if (isNumeric(jsonArray[i][key])) {
-          jsonOut[jsonArray[i]['id']][key] = Number(jsonArray[i][key]);
-        } else {
-          jsonOut[jsonArray[i]['id']][key] = null;
-        }
-      }
+    let keys = Object.keys(jsonArray[i]);
+    let key = keys[keys.length - 1];
+    if (isNumeric(jsonArray[i][key])) {
+        jsonOut[jsonArray[i]["id"]][key] = Number(jsonArray[i][key]);
+    } else {
+        jsonOut[jsonArray[i]["id"]][key] = null;
     }
   }
   return jsonOut;
 }
 
 
-
 _.each(dataConfig, function(m) {
 
-  
   if (m.type === 'sum') {
     csv()
       .fromFile('data/metric/r' + m.metric + '.csv')
       .then((jsonObj) => {
         let outJSON = {};
-        outJSON['map'] = jsonTransform(jsonObj);
-      })
-      
+        outJSON['r'] = jsonTransform(jsonObj);
+
+        fs.writeFileSync(
+          path.join(dest, `r${m.metric}.json`),
+          JSON.stringify(jsonTransform(jsonObj), null, '  ')
+        );
+      })      
   }
   if (m.type === 'mean') {
     csv()
       .fromFile('data/metric/n' + m.metric + '.csv')
       .then((jsonObj) => {
         let outJSON = {};
-        outJSON['map'] = jsonTransform(jsonObj);
+        outJSON['n'] = jsonTransform(jsonObj);
         
         fs.writeFileSync(
-          path.join(dest, `m${m.metric}.json`),
-          JSON.stringify(outJSON, null, '  ')
+          path.join(dest, `n${m.metric}.json`),
+          JSON.stringify(jsonTransform(jsonObj), null, '  ')
         );
         
-      })
-      
+      })      
   }
   if (m.type === 'weighted') {
     csv()
@@ -81,36 +80,35 @@ _.each(dataConfig, function(m) {
           .fromFile('data/metric/d' + m.metric + '.csv')
           .then((jsonObj) => {
             var jsonArrayD = jsonTransform(jsonObj);
-            let key, key2;
-            for (key in jsonArrayR) {
-              for (key2 in jsonArrayR[key]) {
-                if (
-                  isNumeric(jsonArrayR[key][key2]) &&
-                  isNumeric(jsonArrayD[key][key2])
-                ) {
-                  jsonArrayR[key][key2] =
-                    Math.round(
-                      (jsonArrayR[key][key2] / jsonArrayD[key][key2]) * 1000
-                    ) / 1000;
-                } else {
-                  jsonArrayR[key][key2] = null;
-                }
-              }
-            }
-            outJSON['w'] = jsonArrayD;
-            outJSON['map'] = jsonArrayR;
-            
-            
+            // let key, key2;
+            // for (key in jsonArrayR) {
+            //   for (key2 in jsonArrayR[key]) {
+            //     if (
+            //       isNumeric(jsonArrayR[key][key2]) &&
+            //       isNumeric(jsonArrayD[key][key2])
+            //     ) {
+            //       jsonArrayR[key][key2] =
+            //         Math.round(
+            //           (jsonArrayR[key][key2] / jsonArrayD[key][key2]) * 1000
+            //         ) / 1000;
+            //     } else {
+            //       jsonArrayR[key][key2] = null;
+            //     }
+            //   }
+            // }
+            // outJSON['d'] = jsonArrayD;
+            // outJSON['r'] = jsonArrayR;
 
             fs.writeFileSync(
-              path.join(dest, `m${m.metric}.json`),
-              JSON.stringify(outJSON, null, '  ')
+              path.join(dest, `d${m.metric}.json`),
+              JSON.stringify(jsonArrayD, null, '  ')
             );
-            
-          })
-          
+            fs.writeFileSync(
+              path.join(dest, `r${m.metric}.json`),
+              JSON.stringify(jsonArrayR, null, '  ')
+            );            
+          })          
       })
-      
   }
 
 });
