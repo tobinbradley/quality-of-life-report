@@ -100,7 +100,7 @@ _.each(dataConfig, function(m) {
             // outJSON['r'] = jsonArrayR;
 
             fs.writeFileSync(
-              path.join(dest, `d${m.metric}.json`),
+              path.join(dest, `w${m.metric}.json`),
               JSON.stringify(jsonArrayD, null, '  ')
             );
             fs.writeFileSync(
