@@ -24,7 +24,7 @@ export default {
       }      
     },
     embedURL() {
-      return `${this.site.qolembedURL}embed.html?m=2&s=${this.selected.join(',')}&tocp=true`     
+      return `${this.site.qolembedURL}embed.html?m=12&s=${this.selected.join(',')}&tocp=true`     
     }
   }
 }
