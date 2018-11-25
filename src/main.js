@@ -20,18 +20,6 @@ new Vue({
   render: h => h(App)
 });
 
-// Set grid component
-new Vue({
-    el: 'sc-grid',
-    render: h => h(Grid)
-  });
-
-// Set grid component
-new Vue({
-  el: 'sc-map',
-  render: h => h(Map)
-});
-
 // Set selected data set
 var selected = [];
 if (getURLParameter('s') !== null) {

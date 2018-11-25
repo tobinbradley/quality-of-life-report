@@ -1,5 +1,7 @@
 <template>
   <div>
+    <Grid :config=config :data=data :site=site />
+    <Map :site=site />    
     <Category category="Character" :config=config :data=data :site=site />
     <Category category="Economy" :config=config :data=data :site=site />
     <Category category="Environment" :config=config :data=data :site=site />
@@ -14,13 +16,17 @@
 
 <script>
 import Category from './category'
+import EmbedMap from './map'
+import Grid from './grid'
 import data from '../assets/data.json'
 import config from '../../data/config/data.json'
 import site from '../../data/config/site.json'
 
 export default {
   components: {
-    Category: Category
+    Category: Category,
+    Map: EmbedMap,
+    Grid: Grid
   },
   data: function() {
     return {
