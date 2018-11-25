@@ -80,27 +80,9 @@ _.each(dataConfig, function(m) {
           .fromFile('data/metric/d' + m.metric + '.csv')
           .then((jsonObj) => {
             var jsonArrayD = jsonTransform(jsonObj);
-            // let key, key2;
-            // for (key in jsonArrayR) {
-            //   for (key2 in jsonArrayR[key]) {
-            //     if (
-            //       isNumeric(jsonArrayR[key][key2]) &&
-            //       isNumeric(jsonArrayD[key][key2])
-            //     ) {
-            //       jsonArrayR[key][key2] =
-            //         Math.round(
-            //           (jsonArrayR[key][key2] / jsonArrayD[key][key2]) * 1000
-            //         ) / 1000;
-            //     } else {
-            //       jsonArrayR[key][key2] = null;
-            //     }
-            //   }
-            // }
-            // outJSON['d'] = jsonArrayD;
-            // outJSON['r'] = jsonArrayR;
 
             fs.writeFileSync(
-              path.join(dest, `d${m.metric}.json`),
+              path.join(dest, `w${m.metric}.json`),
               JSON.stringify(jsonArrayD, null, '  ')
             );
             fs.writeFileSync(
